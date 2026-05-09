@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Piece Gallery - Premium Art & Collectibles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+  </div>
+
+  <header id="header">
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="file:///c:/Users/user/Downloads/WhatsApp%20Image%202026-05-01%20at%209.30.19%20PM%20(1).jpeg" alt="Show Piece Gallery" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+        <span class="logo-text" style="display:none">Show Piece Gallery</span>
+      </div>
+
+      <nav class="main-nav">
+        <a class="nav-item active" onclick="showPage('home')" data-page="home">Home</a>
+        <a class="nav-item" onclick="showPage('shop')" data-page="shop">Shop</a>
+        <a class="nav-item" onclick="showPage('about')" data-page="about">About</a>
+        <a class="nav-item" onclick="showPage('contact')" data-page="contact">Contact</a>
+        <a class="nav-item" onclick="showPage('faq')" data-page="faq">FAQ</a>
+        <a class="nav-item" onclick="showPage('admin')" data-page="admin">Admin</a>
+        <a class="nav-item" onclick="showPage('dashboard')" data-page="dashboard">Dashboard</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="header-btn" onclick="toggleCart()">
+          <span class="icon">🛒</span>
+          <span>Cart</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="menu-toggle" onclick="toggleMobileNav()">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="close-btn" onclick="toggleMobileNav()">✕</button>
+    <a class="mobile-nav-item active" onclick="showPage('home'); toggleMobileNav()" data-page="home">Home</a>
+    <a class="mobile-nav-item" onclick="showPage('shop'); toggleMobileNav()" data-page="shop">Shop</a>
+    <a class="mobile-nav-item" onclick="showPage('about'); toggleMobileNav()" data-page="about">About Us</a>
+    <a class="mobile-nav-item" onclick="showPage('contact'); toggleMobileNav()" data-page="contact">Contact</a>
+    <a class="mobile-nav-item" onclick="showPage('faq'); toggleMobileNav()" data-page="faq">FAQ</a>
+    <a class="mobile-nav-item" onclick="showPage('admin'); toggleMobileNav()" data-page="admin">Admin Panel</a>
+        <a class="mobile-nav-item" onclick="showPage('dashboard'); toggleMobileNav()" data-page="dashboard">Dashboard</a>
+    <a class="mobile-nav-item" onclick="toggleCart(); toggleMobileNav()">Cart</a>
+  </div>
+
+  <!-- Home Page -->
+  <div class="page active" id="homePage">
+    <section class="hero" id="hero">
+      <div class="hero-slideshow">
+        <div class="slide-item">
+          <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop" alt="Art 1" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-item">
+          <img src="https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=400&h=400&fit=crop" alt="Art 2" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-item">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=400&fit=crop" alt="Art 3" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-item">
+          <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400&h=400&fit=crop" alt="Art 4" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-item">
+          <img src="https://images.unsplash.com/photo-1580519542036-c47de6196ba5?w=400&h=400&fit=crop" alt="Art 5" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-badge">Premium Collection</div>
+        <h1>Show Piece Gallery</h1>
+        <p>Discover extraordinary art pieces and collectibles curated for the discerning connoisseur. Each piece tells a story.</p>
+        <div class="hero-cta">
+          <button class="btn-gold" onclick="showPage('shop')">Explore Collection</button>
+          <button class="btn-outline" onclick="showPage('admin')">Manage Gallery</button>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured-section">
+      <div class="featured-header">
+        <h2>Featured Pieces</h2>
+        <p>Handpicked selections from our curated collection</p>
+      </div>
+      <div class="featured-grid" id="featuredGrid"></div>
+      <button class="btn-gold" onclick="showPage('shop')" style="margin-top: 40px;">View All Pieces</button>
+    </section>
+  </div>
+
+  <!-- About Page -->
+  <div class="page" id="aboutPage">
+    <div class="content-page">
+      <div class="page-header-center">
+        <h1>About Show Piece Gallery</h1>
+        <p>Discover the story behind our curated collection of extraordinary art pieces</p>
+      </div>
+
+      <div class="about-section">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=400&fit=crop" alt="Gallery">
+        </div>
+        <div class="about-content">
+          <h2>Our Story</h2>
+          <p>Show Piece Gallery was founded with a singular vision: to bring extraordinary art and collectibles to discerning collectors worldwide. We curate pieces that tell stories, evoke emotions, and become treasured parts of your space.</p>
+          <p>Each piece in our collection is carefully selected for its uniqueness, craftsmanship, and artistic value. We work with renowned artists and collectors to bring you the finest selection of contemporary and classic pieces.</p>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="icon">🎨</div>
+          <h3>Curated Selection</h3>
+          <p>Every piece is handpicked by our expert curators</p>
+        </div>
+        <div class="feature-box">
+          <div class="icon">🛡️</div>
+          <h3>Authenticity Guaranteed</h3>
+          <p>Certificate of authenticity with every purchase</p>
+        </div>
+        <div class="feature-box">
+          <div class="icon">🚚</div>
+          <h3>Secure Shipping</h3>
+          <p>Insured worldwide delivery with tracking</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Page -->
+  <div class="page" id="contactPage">
+    <div class="content-page">
+      <div class="page-header-center">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you. Get in touch with our team.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Get In Touch</h3>
+          <div class="contact-item">
+            <div class="icon">📍</div>
+            <div>
+              <div class="label">Address</div>
+              <div class="value">123 Gallery Street, Art District, NY 10001</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">📧</div>
+            <div>
+              <div class="label">Email</div>
+              <div class="value">hello@showpiecegallery.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">📞</div>
+            <div>
+              <div class="label">Phone</div>
+              <div class="value">+1 (555) 123-4567</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">🕐</div>
+            <div>
+              <div class="label">Hours</div>
+              <div class="value">Mon-Sat: 10AM - 8PM</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h3>Send a Message</h3>
+          <form onsubmit="submitContact(event)">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" required placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label>Subject</label>
+              <input type="text" required placeholder="What is this about?">
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea required placeholder="Write your message..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Page -->
+  <div class="page" id="faqPage">
+    <div class="content-page">
+      <div class="page-header-center">
+        <h1>Frequently Asked Questions</h1>
+        <p>Find answers to common questions about our gallery and services</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>How do I purchase a piece?</span>
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Simply browse our collection, add items to your cart, and proceed to checkout. We accept all major credit cards and offer secure payment processing.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Do you offer international shipping?</span>
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! We ship worldwide with fully insured delivery. Each shipment is carefully packaged and tracked to ensure safe arrival.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>What is your return policy?</span>
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We offer a 30-day return policy for all pieces in their original condition. Contact us to initiate a return.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Do you provide certificates of authenticity?</span>
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, every purchase comes with a certificate of authenticity verifying the piece's origin and provenance.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I schedule a viewing appointment?</span>
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Absolutely! Contact us to schedule a private viewing at our gallery. We welcome you to experience our collection in person.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Do you offer layaway or payment plans?</span>
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we offer flexible payment plans for purchases over $500. Contact us to discuss available options.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shop Page -->
+  <div class="page" id="shopPage">
+    <main>
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Our Collection</h1>
+          <p class="page-subtitle">Curated pieces for the extraordinary</p>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </main>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div class="page" id="dashboardPage">
+    <div class="dashboard-container">
+      <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage your gallery operations</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📦</div>
+          <div class="stat-content">
+            <div class="stat-value" id="statOrders">0</div>
+            <div class="stat-label">Total Orders</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-content">
+            <div class="stat-value" id="statCustomers">0</div>
+            <div class="stat-label">Customers</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-content">
+            <div class="stat-value" id="statRevenue">$0</div>
+            <div class="stat-label">Total Revenue</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎨</div>
+          <div class="stat-content">
+            <div class="stat-value" id="statProducts">0</div>
+            <div class="stat-label">Products</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="dashboard-section">
+        <h2>Quick Actions</h2>
+        <div class="quick-actions">
+          <button class="action-card" onclick="showPage('admin')">
+            <span class="action-icon">📦</span>
+            <span class="action-text">Manage Products</span>
+          </button>
+          <button class="action-card" onclick="showAdminTab('orders')">
+            <span class="action-icon">🛒</span>
+            <span class="action-text">View Orders</span>
+          </button>
+          <button class="action-card" onclick="showAdminTab('customers')">
+            <span class="action-icon">👥</span>
+            <span class="action-text">Manage Customers</span>
+          </button>
+          <button class="action-card" onclick="showAdminTab('analytics')">
+            <span class="action-icon">📊</span>
+            <span class="action-text">Analytics</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>Recent Orders</h2>
+          <button class="btn-small" onclick="showAdminTab('orders')">View All</button>
+        </div>
+        <div class="recent-orders" id="recentOrders"></div>
+      </div>
+    </div>
+  </div>
+
+<!-- Product Detail Page -->
+  <div class="page" id="detailPage">
+    <div class="detail-container">
+      <button class="back-btn" onclick="showPage('shop')">
+        <span>&larr;</span> Back to Collection
+      </button>
+      <div class="detail-content">
+        <div class="detail-gallery">
+          <div class="detail-main-image">
+            <img id="detailImage" src="" alt="Product Image" onerror="this.src='https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=600&fit=crop'">
+          </div>
+          <div class="detail-thumbnails" id="detailThumbnails"></div>
+        </div>
+        <div class="detail-info">
+          <h1 class="detail-title" id="detailTitle">Product Name</h1>
+          <div class="detail-price" id="detailPrice">$0.00</div>
+          <div class="detail-stock" id="detailStock">In Stock</div>
+          <div class="detail-description" id="detailDescription">
+            <p>Experience the timeless elegance of this exceptional piece. Meticulously crafted with attention to every detail, this artwork represents the pinnacle of artistic expression.</p>
+            <p>Each piece comes with a certificate of authenticity and is carefully packaged for safe delivery worldwide.</p>
+          </div>
+          <div class="detail-specs">
+            <h3>Specifications</h3>
+            <div class="spec-item">
+              <span class="spec-label">Availability</span>
+              <span class="spec-value" id="detailAvailability">In Stock</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">SKU</span>
+              <span class="spec-value" id="detailSku">-</span>
+            </div>
+          </div>
+          <div class="detail-quantity">
+            <label>Quantity</label>
+            <div class="quantity-selector">
+              <button onclick="updateDetailQty(-1)">−</button>
+              <input type="number" id="detailQty" value="1" min="1" max="10">
+              <button onclick="updateDetailQty(1)">+</button>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn-gold btn-large" onclick="addToCartFromDetail()">Add to Collection</button>
+            <button class="btn-outline btn-large" onclick="buyNow()">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Admin Page -->
+  <div class="page" id="adminPage">
+    <div class="admin-container">
+      <div class="admin-header">
+        <h1>Admin Panel</h1>
+        <p>Manage your gallery</p>
+      </div>
+
+      <!-- Admin Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="products" onclick="showAdminTab('products')">
+          <span>📦</span> Products
+        </button>
+        <button class="admin-tab" data-tab="orders" onclick="showAdminTab('orders')">
+          <span>🛒</span> Orders
+        </button>
+        <button class="admin-tab" data-tab="customers" onclick="showAdminTab('customers')">
+          <span>👥</span> Customers
+        </button>
+        <button class="admin-tab" data-tab="analytics" onclick="showAdminTab('analytics')">
+          <span>📊</span> Analytics
+        </button>
+      </div>
+
+      <!-- Products Tab -->
+      <div class="admin-content active" id="tab-products">
+        <div class="admin-layout">
+          <div class="admin-form">
+            <h2 class="form-title" id="formTitle">Add New Piece</h2>
+            <form id="productForm" onsubmit="saveProduct(event)">
+              <input type="hidden" id="productId">
+              <div class="form-group">
+                <label>Piece Name</label>
+                <input type="text" id="productName" required placeholder="Enter piece name">
+              </div>
+              <div class="form-group">
+                <label>Price ($)</label>
+                <input type="number" id="productPrice" step="0.01" min="0" required placeholder="0.00">
+              </div>
+              <div class="form-group">
+                <label>Image URL</label>
+                <input type="url" id="productImage" placeholder="https://example.com/image.jpg">
+              </div>
+              <div class="form-group">
+                <label>Stock Quantity</label>
+                <input type="number" id="productStock" min="0" required placeholder="0">
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn-primary" id="submitBtn">Add Piece</button>
+                <button type="button" class="btn-secondary" onclick="resetForm()" id="cancelBtn" style="display:none">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="products-table">
+            <div class="table-header">
+              <span>Piece</span>
+              <span>Price</span>
+              <span>Stock</span>
+              <span>Status</span>
+              <span>Actions</span>
+            </div>
+            <div id="productsList"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders Tab -->
+      <div class="admin-content" id="tab-orders">
+        <div class="tab-header">
+          <h2>Order Management</h2>
+          <div class="tab-actions">
+            <select id="orderFilter" onchange="filterOrders()">
+              <option value="all">All Orders</option>
+              <option value="pending">Pending</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+        <div class="orders-table">
+          <div class="table-header">
+            <span>Order ID</span>
+            <span>Customer</span>
+            <span>Items</span>
+            <span>Total</span>
+            <span>Status</span>
+            <span>Date</span>
+            <span>Actions</span>
+          </div>
+          <div id="ordersList"></div>
+        </div>
+      </div>
+
+      <!-- Customers Tab -->
+      <div class="admin-content" id="tab-customers">
+        <div class="tab-header">
+          <h2>Customer Management</h2>
+          <div class="tab-actions">
+            <input type="text" id="customerSearch" placeholder="Search customers..." oninput="searchCustomers()">
+          </div>
+        </div>
+        <div class="customers-table">
+          <div class="table-header">
+            <span>Customer</span>
+            <span>Email</span>
+            <span>Orders</span>
+            <span>Total Spent</span>
+            <span>Joined</span>
+            <span>Actions</span>
+          </div>
+          <div id="customersList"></div>
+        </div>
+      </div>
+
+      <!-- Analytics Tab -->
+      <div class="admin-content" id="tab-analytics">
+        <div class="analytics-grid">
+          <div class="analytics-card">
+            <h3>Sales Overview</h3>
+            <div class="analytics-chart" id="salesChart"></div>
+          </div>
+          <div class="analytics-card">
+            <h3>Top Products</h3>
+            <div class="top-products" id="topProducts"></div>
+          </div>
+          <div class="analytics-card">
+            <h3>Recent Activity</h3>
+            <div class="activity-feed" id="activityFeed"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Page -->
+  <div class="page" id="checkoutPage">
+    <div class="checkout-container">
+      <button class="back-btn" onclick="showPage('shop')">
+        <span>&larr;</span> Continue Shopping
+      </button>
+
+      <div class="checkout-grid">
+        <!-- Checkout Form -->
+        <div class="checkout-form-section">
+          <h1>Complete Your Order</h1>
+          <p class="checkout-subtitle">Fill in your details to place the order</p>
+
+          <form id="checkoutForm" onsubmit="processCheckout(event)">
+            <!-- Personal Info -->
+            <div class="form-section">
+              <h3>Personal Information</h3>
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="customerName" required placeholder="Enter your full name">
+              </div>
+              <div class="form-group">
+                <label>Phone Number *</label>
+                <input type="tel" id="customerPhone" required placeholder="01XXXXXXXXX">
+              </div>
+              <div class="form-group">
+                <label>Email (Optional)</label>
+                <input type="email" id="customerEmail" placeholder="your@email.com">
+              </div>
+            </div>
+
+            <!-- Shipping Address -->
+            <div class="form-section">
+              <h3>Shipping Address</h3>
+              <div class="form-group">
+                <label>Full Address *</label>
+                <textarea id="customerAddress" required placeholder="House/Road/Area, City, District"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Division *</label>
+                <select id="customerDivision" required>
+                  <option value="">Select Division</option>
+                  <option value="Dhaka">Dhaka</option>
+                  <option value="Chittagong">Chittagong</option>
+                  <option value="Khulna">Khulna</option>
+                  <option value="Barisal">Barisal</option>
+                  <option value="Sylhet">Sylhet</option>
+                  <option value="Rangpur">Rangpur</option>
+                  <option value="Mymensingh">Mymensingh</option>
+                  <option value="Rajshahi">Rajshahi</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="form-section">
+              <h3>Payment Method</h3>
+              <div class="payment-options">
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="bkash" onchange="showPaymentDetails('bkash')">
+                  <div class="payment-card">
+                    <span class="payment-icon">💳</span>
+                    <span class="payment-name">bKash</span>
+                  </div>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="nagad" onchange="showPaymentDetails('nagad')">
+                  <div class="payment-card">
+                    <span class="payment-icon">💰</span>
+                    <span class="payment-name">Nagad</span>
+                  </div>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="rocket" onchange="showPaymentDetails('rocket')">
+                  <div class="payment-card">
+                    <span class="payment-icon">🚀</span>
+                    <span class="payment-name">Rocket</span>
+                  </div>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="cod" onchange="showPaymentDetails('cod')" checked>
+                  <div class="payment-card">
+                    <span class="payment-icon">💵</span>
+                    <span class="payment-name">Cash on Delivery</span>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Payment Details -->
+              <div id="paymentDetails" class="payment-details">
+                <div class="bkash-details" style="display: none;">
+                  <div class="payment-info">
+                    <p><strong>Send money to:</strong> 01XXXXXXXXX</p>
+                    <p><strong>Amount:</strong> <span id="paymentAmount">$0.00</span></p>
+                  </div>
+                  <div class="form-group">
+                    <label>Transaction ID *</label>
+                    <input type="text" id="transactionId" placeholder="Enter bKash transaction ID">
+                  </div>
+                  <div class="form-group">
+                    <label>Sender Number *</label>
+                    <input type="tel" id="senderNumber" placeholder="01XXXXXXXXX">
+                  </div>
+                </div>
+                <div class="nagad-details" style="display: none;">
+                  <div class="payment-info">
+                    <p><strong>Send money to:</strong> 01XXXXXXXXX</p>
+                    <p><strong>Amount:</strong> <span id="nagadAmount">$0.00</span></p>
+                  </div>
+                  <div class="form-group">
+                    <label>Transaction ID *</label>
+                    <input type="text" id="nagadTransactionId" placeholder="Enter Nagad transaction ID">
+                  </div>
+                  <div class="form-group">
+                    <label>Sender Number *</label>
+                    <input type="tel" id="nagadSenderNumber" placeholder="01XXXXXXXXX">
+                  </div>
+                </div>
+                <div class="rocket-details" style="display: none;">
+                  <div class="payment-info">
+                    <p><strong>Send money to:</strong> 01XXXXXXXXX</p>
+                    <p><strong>Amount:</strong> <span id="rocketAmount">$0.00</span></p>
+                  </div>
+                  <div class="form-group">
+                    <label>Transaction ID *</label>
+                    <input type="text" id="rocketTransactionId" placeholder="Enter Rocket transaction ID">
+                  </div>
+                  <div class="form-group">
+                    <label>Sender Number *</label>
+                    <input type="tel" id="rocketSenderNumber" placeholder="01XXXXXXXXX">
+                  </div>
+                </div>
+                <div class="cod-details">
+                  <div class="payment-info">
+                    <p>Pay when you receive your order. Our delivery person will collect the payment.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-gold btn-large" style="width: 100%; margin-top: 20px;">Place Order</button>
+          </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="checkout-summary">
+          <h2>Order Summary</h2>
+          <div class="summary-items" id="checkoutItems"></div>
+          <div class="summary-totals">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="checkoutSubtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span id="checkoutShipping">$0.00</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total</span>
+              <span id="checkoutTotal">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Cart Modal -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCartOutside(event)">
+    <div class="cart-modal" onclick="event.stopPropagation()">
+      <div class="cart-header">
+        <h2 class="cart-title">Your Cart</h2>
+        <button class="close-cart" onclick="toggleCart()">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty">
+          <div class="cart-empty-icon">🎨</div>
+          <p>Your cart is empty</p>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-value" id="cartTotal">$0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Scroll Navigation Dots -->
+  <div class="scroll-nav" id="scrollNav">
+    <div class="scroll-dot active" data-section="home" onclick="scrollToSection('home')"></div>
+    <div class="scroll-dot" data-section="shop" onclick="scrollToSection('shop')"></div>
+    <div class="scroll-dot" data-section="about" onclick="scrollToSection('about')"></div>
+    <div class="scroll-dot" data-section="contact" onclick="scrollToSection('contact')"></div>
+    <div class="scroll-dot" data-section="faq" onclick="scrollToSection('faq')"></div>
+    <div class="scroll-dot" data-section="admin" onclick="scrollToSection('admin')"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
