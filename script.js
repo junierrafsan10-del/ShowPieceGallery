@@ -41,19 +41,204 @@ const visibleSections = ['home', 'shop', 'about', 'contact', 'faq', 'admin', 'da
 const ADMIN_PASSWORD = 'admin123';
 let isAdminLoggedIn = false;
 
-function checkAdminAuth() {
-  if (!isAdminLoggedIn) {
-    const password = prompt('Enter admin password:');
-    if (password === ADMIN_PASSWORD) {
-      isAdminLoggedIn = true;
-      return true;
-    } else if (password !== null) {
-      showToast('Incorrect password!');
-      return false;
-    }
-    return false;
+// Auth System
+function getUsers() {
+  const stored = localStorage.getItem('showpiece_users');
+  return stored ? JSON.parse(stored) : [];
+}
+
+function saveUsers(users) {
+  localStorage.setItem('showpiece_users', JSON.stringify(users));
+}
+
+function getCurrentUser() {
+  const stored = localStorage.getItem('showpiece_current_user');
+  return stored ? JSON.parse(stored) : null;
+}
+
+function setCurrentUser(user, remember = false) {
+  if (remember) {
+    localStorage.setItem('showpiece_current_user', JSON.stringify(user));
+  } else {
+    sessionStorage.setItem('showpiece_current_user', JSON.stringify(user));
   }
-  return true;
+}
+
+function clearCurrentUser() {
+  localStorage.removeItem('showpiece_current_user');
+  sessionStorage.removeItem('showpiece_current_user');
+}
+
+function checkAuth() {
+  let user = getCurrentUser();
+  if (!user) {
+    user = sessionStorage.getItem('showpiece_current_user') ? JSON.parse(sessionStorage.getItem('showpiece_current_user')) : null;
+  }
+  return user;
+}
+
+// Auth Tab Switching
+function showAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+
+  if (tab === 'login') {
+    document.getElementById('tabLogin').classList.add('active');
+    document.getElementById('loginForm').classList.add('active');
+  } else if (tab === 'signup') {
+    document.getElementById('tabSignup').classList.add('active');
+    document.getElementById('signupForm').classList.add('active');
+  } else if (tab === 'admin') {
+    document.getElementById('tabLogin').classList.add('active');
+    document.getElementById('adminForm').classList.add('active');
+  }
+}
+
+// Login Handler
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const remember = document.getElementById('loginRemember').checked;
+
+  const users = getUsers();
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (user) {
+    setCurrentUser(user, remember);
+    showLoggedInView(user);
+    showToast('Welcome back, ' + user.name + '!');
+    updateAuthNav();
+  } else {
+    showToast('Invalid email or password!');
+  }
+}
+
+// Signup Handler
+function handleSignup(e) {
+  e.preventDefault();
+  const name = document.getElementById('signupName').value;
+  const email = document.getElementById('signupEmail').value;
+  const password = document.getElementById('signupPassword').value;
+  const confirm = document.getElementById('signupConfirm').value;
+
+  if (password !== confirm) {
+    showToast('Passwords do not match!');
+    return;
+  }
+
+  const users = getUsers();
+  if (users.find(u => u.email === email)) {
+    showToast('Email already registered!');
+    return;
+  }
+
+  const newUser = {
+    id: generateId(),
+    name: name,
+    email: email,
+    password: password,
+    role: 'user',
+    createdAt: new Date().toLocaleDateString()
+  };
+
+  users.push(newUser);
+  saveUsers(users);
+  setCurrentUser(newUser, true);
+  showLoggedInView(newUser);
+  showToast('Account created successfully!');
+  updateAuthNav();
+}
+
+// Admin Login Handler
+function handleAdminLogin(e) {
+  e.preventDefault();
+  const key = document.getElementById('adminKey').value;
+
+  if (key === ADMIN_PASSWORD) {
+    const adminUser = {
+      id: 'admin',
+      name: 'Administrator',
+      email: 'admin@showpiece.com',
+      role: 'admin'
+    };
+    setCurrentUser(adminUser, true);
+    isAdminLoggedIn = true;
+    showLoggedInView(adminUser);
+    showToast('Welcome, Admin!');
+    updateAuthNav();
+    showPage('admin');
+  } else {
+    showToast('Invalid admin key!');
+  }
+}
+
+// Show Logged In View
+function showLoggedInView(user) {
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+  document.getElementById('loggedInForm').classList.add('active');
+
+  document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+  document.getElementById('userName').textContent = 'Welcome, ' + user.name + '!';
+  document.getElementById('userEmail').textContent = user.email || 'No email';
+  document.getElementById('userEmail').style.display = user.email ? 'block' : 'none';
+
+  const roleEl = document.getElementById('userRole');
+  roleEl.textContent = user.role === 'admin' ? 'Administrator' : 'Member';
+  roleEl.classList.toggle('admin', user.role === 'admin');
+}
+
+// Go to Dashboard
+function goToDashboard() {
+  const user = checkAuth();
+  if (user && user.role === 'admin') {
+    showPage('admin');
+  } else {
+    showPage('dashboard');
+  }
+}
+
+// Logout
+function logout() {
+  clearCurrentUser();
+  isAdminLoggedIn = false;
+  showAuthTab('login');
+  showPage('login');
+  updateAuthNav();
+  showToast('Logged out successfully!');
+}
+
+// Update Navigation based on auth
+function updateAuthNav() {
+  const user = checkAuth();
+  const loginNav = document.querySelector('.nav-item[data-page="login"]');
+  const adminNav = document.getElementById('adminNav');
+  const dashboardNav = document.getElementById('dashboardNav');
+  const logoutNav = document.getElementById('logoutNav');
+
+  if (user) {
+    if (loginNav) loginNav.style.display = 'none';
+    if (user.role === 'admin') {
+      adminNav.style.display = 'block';
+    }
+    dashboardNav.style.display = 'block';
+    logoutNav.style.display = 'block';
+  } else {
+    if (loginNav) loginNav.style.display = 'block';
+    adminNav.style.display = 'none';
+    dashboardNav.style.display = 'none';
+    logoutNav.style.display = 'none';
+  }
+}
+
+function checkAdminAuth() {
+  const user = checkAuth();
+  if (user && user.role === 'admin') {
+    return true;
+  }
+  showPage('login');
+  showAuthTab('admin');
+  return false;
 }
 
 function showPage(page, fromScroll = false) {
@@ -733,7 +918,17 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFeatured();
   handleScrollNavDisplay();
   initDashboard();
+  initAuth();
 });
+
+function initAuth() {
+  const user = checkAuth();
+  if (user) {
+    showPage('login');
+    showLoggedInView(user);
+  }
+  updateAuthNav();
+}
 
 // Dashboard Functions
 function initDashboard() {
