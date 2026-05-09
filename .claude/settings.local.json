@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "PowerShell(Start-Process \"C:\\\\Users\\\\user\\\\showpiece-gallery\\\\index.html\")",
-      "PowerShell(& \"C:\\\\Program Files\\\\Git\\\\bin\\\\git.exe\" --version)"
+      "PowerShell(& \"C:\\\\Program Files\\\\Git\\\\bin\\\\git.exe\" --version)",
+      "PowerShell(& \"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\" auth status)"
     ]
   }
 }
