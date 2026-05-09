@@ -930,6 +930,30 @@ function initAuth() {
   updateAuthNav();
 }
 
+// Light Bulb Toggle
+let isLightOn = false;
+
+function toggleLight() {
+  const bulbGlass = document.getElementById('bulbGlass');
+  const bulbRays = document.getElementById('bulbRays');
+  const authBox = document.getElementById('authBox');
+  const hint = document.querySelector('.bulb-click-hint');
+
+  isLightOn = !isLightOn;
+
+  if (isLightOn) {
+    bulbGlass.classList.add('on');
+    bulbRays.classList.add('on');
+    authBox.classList.add('show');
+    hint.style.display = 'none';
+  } else {
+    bulbGlass.classList.remove('on');
+    bulbRays.classList.remove('on');
+    authBox.classList.remove('show');
+    hint.style.display = 'block';
+  }
+}
+
 // Dashboard Functions
 function initDashboard() {
   updateDashboardStats();

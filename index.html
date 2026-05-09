@@ -750,93 +750,96 @@
 
   <!-- Login/Signup Page -->
   <div class="page" id="loginPage">
-    <div class="auth-container">
-      <div class="auth-card">
-        <div class="auth-header">
-          <div class="auth-logo">🎨</div>
-          <h1>Show Piece Gallery</h1>
-          <p>Welcome back to your gallery</p>
+    <div class="light-bulb-container">
+      <!-- Light Bulb -->
+      <div class="light-bulb-wrapper" onclick="toggleLight()">
+        <div class="bulb-base"></div>
+        <div class="bulb-glass" id="bulbGlass">
+          <div class="bulb-filament"></div>
+          <div class="bulb-glow"></div>
         </div>
+        <div class="bulb-rays" id="bulbRays"></div>
+        <div class="bulb-click-hint">Click to turn on</div>
+      </div>
 
-        <div class="auth-tabs">
-          <button class="auth-tab active" onclick="showAuthTab('login')" id="tabLogin">Login</button>
-          <button class="auth-tab" onclick="showAuthTab('signup')" id="tabSignup">Sign Up</button>
-        </div>
+      <!-- Login Form Container -->
+      <div class="auth-box" id="authBox">
+        <div class="auth-card">
+          <button class="close-auth" onclick="toggleLight()">✕</button>
 
-        <!-- Login Form -->
-        <div class="auth-form active" id="loginForm">
-          <form onsubmit="handleLogin(event)">
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="loginEmail" required placeholder="Enter your email">
-            </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" id="loginPassword" required placeholder="Enter your password">
-            </div>
-            <div class="form-group">
-              <label>
-                <input type="checkbox" id="loginRemember"> Remember me
-              </label>
-            </div>
-            <button type="submit" class="btn-gold btn-full">Login</button>
-          </form>
-          <div class="auth-footer">
-            <p>Admin access? <a href="#" onclick="showAuthTab('admin'); return false;">Admin Login</a></p>
+          <div class="auth-header">
+            <h1>Show Piece Gallery</h1>
+            <p>Enter your credentials</p>
           </div>
-        </div>
 
-        <!-- Signup Form -->
-        <div class="auth-form" id="signupForm">
-          <form onsubmit="handleSignup(event)">
-            <div class="form-group">
-              <label>Full Name</label>
-              <input type="text" id="signupName" required placeholder="Enter your full name">
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="signupEmail" required placeholder="Enter your email">
-            </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" id="signupPassword" required placeholder="Create a password" minlength="6">
-            </div>
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <input type="password" id="signupConfirm" required placeholder="Confirm your password">
-            </div>
-            <button type="submit" class="btn-gold btn-full">Create Account</button>
-          </form>
-          <div class="auth-footer">
-            <p>Already have an account? <a href="#" onclick="showAuthTab('login'); return false;">Login</a></p>
+          <div class="auth-tabs">
+            <button class="auth-tab active" onclick="showAuthTab('login')" id="tabLogin">Login</button>
+            <button class="auth-tab" onclick="showAuthTab('signup')" id="tabSignup">Sign Up</button>
           </div>
-        </div>
 
-        <!-- Admin Login Form -->
-        <div class="auth-form" id="adminForm">
-          <form onsubmit="handleAdminLogin(event)">
-            <div class="admin-badge">Admin Access</div>
-            <div class="form-group">
-              <label>Admin Key</label>
-              <input type="password" id="adminKey" required placeholder="Enter your admin key">
+          <!-- Login Form -->
+          <div class="auth-form active" id="loginForm">
+            <form onsubmit="handleLogin(event)">
+              <div class="form-group">
+                <input type="email" id="loginEmail" required placeholder="Email">
+              </div>
+              <div class="form-group">
+                <input type="password" id="loginPassword" required placeholder="Password">
+              </div>
+              <button type="submit" class="btn-gold btn-full">Login</button>
+            </form>
+            <div class="auth-footer">
+              <p>Admin? <a href="#" onclick="showAuthTab('admin'); return false;">Admin Login</a></p>
             </div>
-            <button type="submit" class="btn-gold btn-full">Access Admin Panel</button>
-          </form>
-          <div class="auth-footer">
-            <p>Back to <a href="#" onclick="showAuthTab('login'); return false;">User Login</a></p>
           </div>
-        </div>
 
-        <!-- Logged In View -->
-        <div class="auth-form" id="loggedInForm">
-          <div class="logged-in-content">
-            <div class="user-avatar" id="userAvatar">U</div>
-            <h2 id="userName">Welcome!</h2>
-            <p id="userEmail">user@example.com</p>
-            <div class="user-role" id="userRole">User</div>
-            <div class="user-actions">
-              <button class="btn-gold" onclick="goToDashboard()">Go to Dashboard</button>
-              <button class="btn-outline" onclick="logout()">Logout</button>
+          <!-- Signup Form -->
+          <div class="auth-form" id="signupForm">
+            <form onsubmit="handleSignup(event)">
+              <div class="form-group">
+                <input type="text" id="signupName" required placeholder="Full Name">
+              </div>
+              <div class="form-group">
+                <input type="email" id="signupEmail" required placeholder="Email">
+              </div>
+              <div class="form-group">
+                <input type="password" id="signupPassword" required placeholder="Password" minlength="6">
+              </div>
+              <div class="form-group">
+                <input type="password" id="signupConfirm" required placeholder="Confirm Password">
+              </div>
+              <button type="submit" class="btn-gold btn-full">Create Account</button>
+            </form>
+            <div class="auth-footer">
+              <p>Already have an account? <a href="#" onclick="showAuthTab('login'); return false;">Login</a></p>
+            </div>
+          </div>
+
+          <!-- Admin Login Form -->
+          <div class="auth-form" id="adminForm">
+            <form onsubmit="handleAdminLogin(event)">
+              <div class="admin-badge">Admin Access</div>
+              <div class="form-group">
+                <input type="password" id="adminKey" required placeholder="Admin Key">
+              </div>
+              <button type="submit" class="btn-gold btn-full">Access Admin</button>
+            </form>
+            <div class="auth-footer">
+              <p>Back to <a href="#" onclick="showAuthTab('login'); return false;">User Login</a></p>
+            </div>
+          </div>
+
+          <!-- Logged In View -->
+          <div class="auth-form" id="loggedInForm">
+            <div class="logged-in-content">
+              <div class="user-avatar" id="userAvatar">U</div>
+              <h2 id="userName">Welcome!</h2>
+              <p id="userEmail">user@example.com</p>
+              <div class="user-role" id="userRole">User</div>
+              <div class="user-actions">
+                <button class="btn-gold" onclick="goToDashboard()">Dashboard</button>
+                <button class="btn-outline" onclick="logout()">Logout</button>
+              </div>
             </div>
           </div>
         </div>
